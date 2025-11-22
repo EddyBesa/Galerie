@@ -41,6 +41,7 @@ function updateFavorites() {
     }
   });
 }
+
 // Fonction pour rechercher et afficher les images
 async function fetchImages(query) {
   if (!query.trim()) {
@@ -66,6 +67,7 @@ async function fetchImages(query) {
     resultsGrid.innerHTML = '<p>Erreur lors de la récupération des images.</p>';
   }
 }
+
 // Affichage dynamique des résultats
 function displayResults(images) {
   resultsGrid.innerHTML = '';
@@ -88,6 +90,7 @@ function displayResults(images) {
     card.querySelector('img').addEventListener('click', () => openLightbox(image.urls.regular));
   });
 }
+
 // Ajout/suppression dans favoris et mise à jour interface
 function toggleFavorite(id) {
   if (favorites.includes(id)) {
@@ -99,6 +102,7 @@ function toggleFavorite(id) {
   updateFavorites();
   updateResultsFavoritesButtons();
 }
+
 // Met à jour les boutons "Ajouter/Retirer Favori" dans les résultats
 function updateResultsFavoritesButtons() {
   const buttons = document.querySelectorAll('.favorite-btn');
@@ -131,3 +135,19 @@ function openLightbox(imageUrl) {
     if (e.target === modal) modal.remove();
   });
 }
+
+
+
+// Initialisation
+function init() {
+  updateFavorites();
+
+  searchButton.addEventListener('click', () => fetchImages(searchInput.value));
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      fetchImages(searchInput.value);
+    }
+  });
+}
+
+init();
