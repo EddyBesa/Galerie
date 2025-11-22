@@ -15,3 +15,29 @@ function updateFavorites() {
     return;
   }
   favorites.forEach(async id => {
+    // Récupérer les infos photo par ID via API Unsplash
+    try {
+      const res = await fetch(`https://api.unsplash.com/photos/${id}?client_id=${API_KEY}`);
+      const image = await res.json();
+
+      const card = document.createElement('div');
+      card.className = 'card favorite-card';
+
+      card.innerHTML = `
+        <img src="${image.urls.small}" alt="Photo de ${image.user.name}" tabindex="0" />
+        <h3>${image.user.name}</h3>
+        <a href="${image.links.html}" target="_blank" rel="noopener noreferrer">Source</a>
+        <button class="remove-fav-btn" data-id="${id}">Supprimer</button>
+      `;
+
+      favoritesGrid.appendChild(card);
+
+      card.querySelector('.remove-fav-btn').addEventListener('click', () => {
+        toggleFavorite(id);
+      });
+      card.querySelector('img').addEventListener('click', () => openLightbox(image.urls.regular));
+    } catch (error) {
+      console.error("Erreur en récupérant favori:", error);
+    }
+  });
+}
