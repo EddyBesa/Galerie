@@ -41,3 +41,28 @@ function updateFavorites() {
     }
   });
 }
+// Fonction pour rechercher et afficher les images
+async function fetchImages(query) {
+  if (!query.trim()) {
+    alert('Veuillez saisir un terme de recherche.');
+    return;
+  }
+  loader.classList.remove('hidden');
+  resultsGrid.innerHTML = '';
+
+  try {
+    const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=20&client_id=${API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    loader.classList.add('hidden');
+
+    if (!data.results.length) {
+      resultsGrid.innerHTML = '<p>Aucun résultat trouvé.</p>';
+      return;
+    }
+    displayResults(data.results);
+  } catch (error) {
+    loader.classList.add('hidden');
+    resultsGrid.innerHTML = '<p>Erreur lors de la récupération des images.</p>';
+  }
+}
