@@ -66,3 +66,25 @@ async function fetchImages(query) {
     resultsGrid.innerHTML = '<p>Erreur lors de la récupération des images.</p>';
   }
 }
+// Affichage dynamique des résultats
+function displayResults(images) {
+  resultsGrid.innerHTML = '';
+  images.forEach(image => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    card.innerHTML = `
+      <img src="${image.urls.small}" alt="Photo de ${image.user.name}" tabindex="0" />
+      <h3>${image.user.name}</h3>
+      <a href="${image.links.html}" target="_blank" rel="noopener noreferrer">Source</a>
+      <button class="favorite-btn" data-id="${image.id}">
+        ${favorites.includes(image.id) ? 'Retirer Favori' : 'Ajouter Favori'}
+      </button>
+    `;
+
+    resultsGrid.appendChild(card);
+
+    card.querySelector('.favorite-btn').addEventListener('click', () => toggleFavorite(image.id));
+    card.querySelector('img').addEventListener('click', () => openLightbox(image.urls.regular));
+  });
+}
