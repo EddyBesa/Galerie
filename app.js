@@ -88,3 +88,14 @@ function displayResults(images) {
     card.querySelector('img').addEventListener('click', () => openLightbox(image.urls.regular));
   });
 }
+// Ajout/suppression dans favoris et mise à jour interface
+function toggleFavorite(id) {
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(fav => fav !== id);
+  } else {
+    favorites.push(id);
+  }
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+  updateFavorites();
+  updateResultsFavoritesButtons();
+}
