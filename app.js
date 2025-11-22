@@ -99,3 +99,35 @@ function toggleFavorite(id) {
   updateFavorites();
   updateResultsFavoritesButtons();
 }
+// Met à jour les boutons "Ajouter/Retirer Favori" dans les résultats
+function updateResultsFavoritesButtons() {
+  const buttons = document.querySelectorAll('.favorite-btn');
+  buttons.forEach(button => {
+    const id = button.getAttribute('data-id');
+    if (favorites.includes(id)) {
+      button.textContent = 'Retirer Favori';
+    } else {
+      button.textContent = 'Ajouter Favori';
+    }
+  });
+}
+
+function openLightbox(imageUrl) {
+  const modal = document.createElement('div');
+  modal.className = 'lightbox';
+
+  modal.innerHTML = `
+    <div class="lightbox-content">
+      <img src="${imageUrl}" alt="Image agrandie" />
+      <button class="close-lightbox">✖</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector('.close-lightbox').addEventListener('click', () => modal.remove());
+
+  // Fermeture au clic en dehors
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.remove();
+  });
+}
