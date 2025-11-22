@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galerie d'Inspiration Créative</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Galerie d'Inspiration Créative</h1>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Rechercher des images..." />
+      <button id="searchButton">Rechercher</button>
+    </div>
+  </header>
+  <main>
+    <section id="resultsGrid" class="grid"></section>
+    <section id="favoritesSection">
+      <h2>Mes Favoris</h2>
+      <div id="favoritesGrid" class="grid"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Beskil</p>
+  </footer>
+  <div id="loader" class="hidden">Chargement...</div>
+</body>
+</html>
